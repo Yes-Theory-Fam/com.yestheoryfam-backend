@@ -10,8 +10,8 @@
   "scripts": {
     "start": "ts-node-dev --respawn src/index.ts",
     "start:prod": "ts-node src/index.ts",
-    "lint:fix": "eslint src/** --fix",
-    "lint": "eslint src/**"
+    "lint:fix": "eslint src/** index.d.ts --fix",
+    "lint": "eslint src/** index.d.ts"
   },
   "dependencies": {
     "axios": "^0.19.2",
