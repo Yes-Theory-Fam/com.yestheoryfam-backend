@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
 
 interface UserDetails {
   type: "user";
@@ -13,7 +13,7 @@ type ApiCredentials = UserDetails | BotDetails;
 
 const BOT_TOKEN = process.env["BOT_TOKEN"];
 
-export const DiscordApi = (creds: ApiCredentials) => {
+export const DiscordApi = (creds: ApiCredentials): AxiosInstance => {
   const isUserCheck = (creds: ApiCredentials): creds is UserDetails =>
     creds.type === "user";
 

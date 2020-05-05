@@ -6,11 +6,13 @@ const BUDDY_PROJECT_ROLE = process.env["BUDDY_PROJECT_ROLE"];
 
 const userToServer = async (
   userId: string,
-  access_token: string
+  accessToken: string
 ): Promise<boolean> => {
   const api = Api({ type: "bot" });
   const roles = [BUDDY_PROJECT_ROLE];
-  const payload = { access_token, roles };
+
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  const payload = { access_token: accessToken, roles };
 
   const response = await api.put(ADD_MEMBER + userId, payload);
   if (response.status === 201) {
