@@ -3,11 +3,11 @@ import listEndpoints from "express-list-endpoints";
 import dotenv from "dotenv";
 import cors, { CorsOptions } from "cors";
 
-import { forceValidToken, requestLogger } from "./middleware";
-import routes from "./routes";
-
 // Loads .env file
 dotenv.config();
+
+import { forceValidToken, requestLogger } from "./middleware";
+import routes from "./routes";
 
 const app = express();
 const port = 3000;

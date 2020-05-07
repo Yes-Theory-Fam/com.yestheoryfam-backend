@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from "axios";
+import { Client } from "discord.js";
 
 interface UserDetails {
   type: "user";
@@ -13,7 +14,7 @@ type ApiCredentials = UserDetails | BotDetails;
 
 const BOT_TOKEN = process.env["BOT_TOKEN"];
 
-export const DiscordApi = (creds: ApiCredentials): AxiosInstance => {
+const DiscordApi = (creds: ApiCredentials): AxiosInstance => {
   const isUserCheck = (creds: ApiCredentials): creds is UserDetails =>
     creds.type === "user";
 
@@ -30,5 +31,9 @@ export const DiscordApi = (creds: ApiCredentials): AxiosInstance => {
   });
   return api;
 };
+
+const bot = new Client();
+bot.login(BOT_TOKEN);
+export { bot };
 
 export default DiscordApi;
