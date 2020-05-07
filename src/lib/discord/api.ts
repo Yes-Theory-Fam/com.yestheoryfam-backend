@@ -17,9 +17,7 @@ export const DiscordApi = (creds: ApiCredentials): AxiosInstance => {
   const isUserCheck = (creds: ApiCredentials): creds is UserDetails =>
     creds.type === "user";
 
-  const token = isUserCheck(creds)
-    ? `Bearer ${creds.token}`
-    : `Bot ${BOT_TOKEN}`;
+  const token = isUserCheck(creds) ? `${creds.token}` : `Bot ${BOT_TOKEN}`;
 
   const api = axios.create({
     baseURL: "https://discordapp.com/api/",
