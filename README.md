@@ -13,6 +13,7 @@ You also need a `.env` file in the root of this project with these keys:
 | `BOT_TOKEN`          | A Discord Bot token. This is used to add users to the server (see [Add Guild Member](https://discordapp.com/developers/docs/resources/guild#add-guild-member)) |
 | `GUILD_ID`           | The ID of the server people will be added to                                                                                                                   |
 | `BUDDY_PROJECT_ROLE` | The ID of the role for users who are part of the Buddy Project                                                                                                 |
+| `LOCAL_WEBSITE`      | (optional) The host of the local dev server running the frontend. This is used for CORS and should be left out in a production environment.                    |
 
 ## Instructions
 

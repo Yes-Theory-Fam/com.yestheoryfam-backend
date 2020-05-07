@@ -14,7 +14,7 @@ const port = 3000;
 
 // Adding localhost probably isn't the brightest idea for the productive version?
 const whitelist = [
-  "http://localhost:8080",
+  process.env["LOCAL_WEBSITE"],
   "https://yestheoryfam.com",
   "https://yes.sklirg.io",
 ];
