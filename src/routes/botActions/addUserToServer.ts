@@ -4,6 +4,7 @@ import { userToServer } from "../../lib/discord";
 const router = Router();
 
 router.post("/", async (req, res) => {
+  console.log("addUserToServer.ts");
   const user: DiscordUser = res.locals.user;
   const { authorization } = req.headers;
   const success = await userToServer(user.id, authorization);

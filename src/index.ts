@@ -3,7 +3,7 @@ import listEndpoints from "express-list-endpoints";
 import dotenv from "dotenv";
 import cors, { CorsOptions } from "cors";
 
-import { forceValidToken } from "./middleware";
+import { forceValidToken, requestLogger } from "./middleware";
 import routes from "./routes";
 
 // Loads .env file
@@ -21,13 +21,14 @@ const whitelist = [
 
 const corsOptions: CorsOptions = {
   origin: (origin, cb) => {
-    console.log(origin);
-
     if (whitelist.includes(origin)) return cb(null, true);
+
+    console.log("Disallowed origin attempted to connect to API: " + origin);
     cb(new Error("Not allowed by CORS"));
   },
 };
 
+app.use(requestLogger);
 app.use(cors(corsOptions));
 app.use(forceValidToken);
 app.use("/", routes);
