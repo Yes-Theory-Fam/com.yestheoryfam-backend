@@ -4,7 +4,7 @@ import botActions from "./botActions";
 
 const router = Router();
 
-router.get("/", (_, res) => res.send("OK"));
 router.use("/bot-actions", botActions);
+router.get("/", (_, res) => res.send("OK"));
 
 export default router;
