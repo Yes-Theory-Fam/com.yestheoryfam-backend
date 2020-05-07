@@ -25,6 +25,8 @@ export const DiscordApi = (creds: ApiCredentials): AxiosInstance => {
     headers: {
       Authorization: token,
     },
+    // Don't throw on status outside 200 - 299
+    validateStatus: () => true,
   });
   return api;
 };
