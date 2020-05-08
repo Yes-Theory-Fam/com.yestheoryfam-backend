@@ -3,7 +3,7 @@ import listEndpoints from "express-list-endpoints";
 import dotenv from "dotenv";
 import cors, { CorsOptions } from "cors";
 
-// Loads .env file
+// Loads .env files
 dotenv.config();
 
 import { forceValidToken, requestLogger } from "./middleware";
