@@ -12,7 +12,7 @@ import routes from "./routes";
 const app = express();
 const port = 3000;
 
-// Adding localhost probably isn't the brightest idea for the productive version?
+// Adding localhost probably isn't the brightest idea for the production version?
 const whitelist = [
   process.env["LOCAL_WEBSITE"],
   "https://yestheoryfam.com",
