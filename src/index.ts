@@ -6,12 +6,7 @@ import koaLogger from "koa-logger-winston";
 // Loads .env files
 dotenv.config();
 
-import {
-  forceValidToken,
-  requestLogger,
-  logger,
-  errorHandler,
-} from "./middleware";
+import { forceValidToken, logger, errorHandler } from "./middleware";
 import routes from "./routes";
 
 const app = new Koa();
