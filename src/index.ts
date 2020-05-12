@@ -1,7 +1,6 @@
-import express from "express";
-import listEndpoints from "express-list-endpoints";
+import Koa from "koa";
 import dotenv from "dotenv";
-import cors, { CorsOptions } from "cors";
+import cors, { Options } from "@koa/cors";
 
 // Loads .env files
 dotenv.config();
@@ -9,7 +8,7 @@ dotenv.config();
 import { forceValidToken, requestLogger } from "./middleware";
 import routes from "./routes";
 
-const app = express();
+const app = new Koa();
 const port = 3000;
 
 // Adding localhost probably isn't the brightest idea for the production version?
@@ -19,21 +18,18 @@ const whitelist = [
   "https://yes.sklirg.io",
 ];
 
-const corsOptions: CorsOptions = {
-  origin: (origin, cb) => {
-    if (whitelist.includes(origin)) return cb(null, true);
+const corsOptions: Options = {
+  origin: (ctx) => {
+    const origin = ctx.request.header.origin;
+    if (whitelist.includes(origin)) return origin;
 
-    console.log("Disallowed origin attempted to connect to API: " + origin);
-    cb(new Error("Not allowed by CORS"));
+    ctx.throw(`Disallowed origin attempted to connect to API: ${origin}`);
   },
 };
 
-app.use(requestLogger);
 app.use(cors(corsOptions));
-app.use(forceValidToken);
-app.use("/", routes);
+// app.use(requestLogger);
+// app.use(forceValidToken);
+// app.use("/", routes);
 
 app.listen(port, () => console.log("Running on port " + port));
-
-// Mostly to make sure all endpoints are correct and later to have an easier list to go through when documenting.
-console.log("Endpoints that are listened on:", listEndpoints(app));
