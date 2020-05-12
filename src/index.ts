@@ -1,11 +1,12 @@
 import Koa from "koa";
 import dotenv from "dotenv";
 import cors, { Options } from "@koa/cors";
+import koaLogger from "koa-logger-winston";
 
 // Loads .env files
 dotenv.config();
 
-import { forceValidToken, requestLogger } from "./middleware";
+import { forceValidToken, requestLogger, logger } from "./middleware";
 import routes from "./routes";
 
 const app = new Koa();
@@ -28,7 +29,7 @@ const corsOptions: Options = {
 };
 
 app.use(cors(corsOptions));
-// app.use(requestLogger);
+app.use(koaLogger(logger));
 // app.use(forceValidToken);
 // app.use("/", routes);
 
