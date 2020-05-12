@@ -28,9 +28,9 @@ const corsOptions: Options = {
   },
 };
 
+app.use(errorHandler);
 app.use(cors(corsOptions));
 app.use(koaLogger(logger));
-app.use(errorHandler);
 app.use(forceValidToken);
 app.use(routes.routes()).use(routes.allowedMethods());
 
