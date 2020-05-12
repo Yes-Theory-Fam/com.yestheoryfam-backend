@@ -1,10 +1,9 @@
 import Router from "@koa/router";
 import { userToServer } from "../../lib/discord";
-import { Context } from "koa";
 
-const router = new Router();
+const router = new Router<KoaState>();
 
-router.post("/", async (ctx: Context) => {
+router.post("/", async (ctx) => {
   const { request, response, state } = ctx;
 
   const user: DiscordUser = state.user;

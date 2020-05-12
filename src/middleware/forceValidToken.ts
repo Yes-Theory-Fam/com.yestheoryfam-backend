@@ -1,8 +1,11 @@
 import { getUserDetails } from "../lib/discord";
 import Error from "../config/errors";
-import { Context, Next } from "koa";
+import { Next, ParameterizedContext } from "koa";
 
-const forceValidToken = async (ctx: Context, next: Next): Promise<void> => {
+const forceValidToken = async (
+  ctx: ParameterizedContext<KoaState>,
+  next: Next
+): Promise<void> => {
   const { request, response, state } = ctx;
 
   const { authorization } = request.headers;
