@@ -10,7 +10,7 @@ import { forceValidToken, logger, errorHandler } from "./middleware";
 import routes from "./routes";
 
 const app = new Koa();
-const port = 3000;
+const HTTP_PORT = process.env["HTTP_PORT"] ?? 3000;
 
 // Adding localhost probably isn't the brightest idea for the production version?
 const whitelist = [
@@ -34,4 +34,4 @@ app.use(koaLogger(logger));
 app.use(forceValidToken);
 app.use(routes.routes()).use(routes.allowedMethods());
 
-app.listen(port, () => console.log("Running on port " + port));
+app.listen(HTTP_PORT, () => console.log("Running on port " + HTTP_PORT));
