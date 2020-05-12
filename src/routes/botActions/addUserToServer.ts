@@ -1,21 +1,25 @@
-import { Router } from "express";
+import Router from "@koa/router";
 import { userToServer } from "../../lib/discord";
+import { Context } from "koa";
 
-const router = Router();
+const router = new Router();
 
-router.post("/", async (req, res) => {
-  console.log("addUserToServer.ts");
-  const user: DiscordUser = res.locals.user;
-  const { authorization } = req.headers;
+router.post("/", async (ctx: Context) => {
+  const { request, response, state } = ctx;
+
+  const user: DiscordUser = state.user;
+  const { authorization } = request.headers;
   const success = await userToServer(user.id, authorization);
 
   if (success) {
-    res.send("OK");
+    response.body = "OK";
   } else {
-    console.error(
+    response.status = 500;
+    response.body = "Server Error";
+
+    ctx.throw(
       "Adding a user to the server failed! Check logs above for reasoning"
     );
-    res.status(500).send("Server Error");
   }
 });
 
