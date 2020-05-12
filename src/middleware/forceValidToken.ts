@@ -1,28 +1,31 @@
-import { Router } from "express";
 import { getUserDetails } from "../lib/discord";
 import Error from "../config/errors";
+import { Context, Next } from "koa";
 
-const router = Router();
+const forceValidToken = async (ctx: Context, next: Next): Promise<void> => {
+  const { request, response, state } = ctx;
 
-router.use("/", async (req, res, next) => {
-  const { authorization } = req.headers;
+  const { authorization } = request.headers;
   if (!authorization) {
-    res.status(401).send("Unauthorized");
+    response.status = 401;
+    response.body = "Unauthorized";
     return;
   }
 
   try {
     const userDetails = await getUserDetails(authorization);
-    res.locals.user = userDetails;
+    state.user = userDetails;
   } catch (e) {
     if (e.code === Error.UNEXPECTED_RESPONSE_CODE) {
-      console.log(`Error thrown: ${e.message}`);
+      ctx.throw(`Error thrown: ${e.message}`);
     }
-    res.status(401).send("Unauthorized");
+
+    response.status = 401;
+    response.body = "Unauthorized";
     return;
   }
 
   next();
-});
+};
 
-export default router;
+export default forceValidToken;

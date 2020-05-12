@@ -36,7 +36,7 @@ const corsOptions: Options = {
 app.use(cors(corsOptions));
 app.use(koaLogger(logger));
 app.use(errorHandler);
-// app.use(forceValidToken);
+app.use(forceValidToken);
 // app.use("/", routes);
 
 app.listen(port, () => console.log("Running on port " + port));
