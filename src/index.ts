@@ -1,39 +1,43 @@
-import express from "express";
-import listEndpoints from "express-list-endpoints";
+import Koa from 'koa';
+import { errorToJson } from './middleware/error-to-json';
+import bodyParser from 'koa-bodyparser';
+import proxy from "koa-proxy";
+import koaLogger from "koa-logger-winston";
+import Boom from '@hapi/boom';
+import cors from '@koa/cors';
+import logger from './logger';
 import dotenv from "dotenv";
-import cors, { CorsOptions } from "cors";
 
-// Loads .env file
 dotenv.config();
 
-import { forceValidToken, requestLogger } from "./middleware";
-import routes from "./routes";
 
-const app = express();
-const port = 3000;
+const app = new Koa();
 
-// Adding localhost probably isn't the brightest idea for the productive version?
-const whitelist = [
-  process.env["LOCAL_WEBSITE"],
-  "https://yestheoryfam.com",
-  "https://yes.sklirg.io",
-];
+app.use(
+  cors()
+);
 
-const corsOptions: CorsOptions = {
-  origin: (origin, cb) => {
-    if (whitelist.includes(origin)) return cb(null, true);
 
-    console.log("Disallowed origin attempted to connect to API: " + origin);
-    cb(new Error("Not allowed by CORS"));
-  },
-};
+app.use(
+  koaLogger(logger)
+);
 
-app.use(requestLogger);
-app.use(cors(corsOptions));
-app.use(forceValidToken);
-app.use("/", routes);
+app.use(
+  errorToJson()
+);
 
-app.listen(port, () => console.log("Running on port " + port));
+app.use(bodyParser({
+  enableTypes: ['json'],
+  onerror: (err, ctx) => {
+    ctx.throw(Boom.badData(err.message));
+  }
+}))
 
-// Mostly to make sure all endpoints are correct and later to have an easier list to go through when documenting.
-console.log("Endpoints that are listened on:", listEndpoints(app));
+
+app.use(proxy({
+  host:"http://discordapp.com/api"
+}));
+
+app.listen(process.env.HTTP_PORT, () => console.log("Running on port " + process.env.HTTP_PORT));
+
+
