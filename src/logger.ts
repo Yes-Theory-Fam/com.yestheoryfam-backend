@@ -1,11 +1,15 @@
-import * as Winston from 'winston'
+import * as Winston from "winston";
+import DiscordTransport from "winston-discord-transport";
 
-const { LOG_LEVEL } = process.env
+const { LOG_LEVEL, DISCORD_LOGGER_WEBHOOK } = process.env;
 
 export default Winston.createLogger({
-  level: LOG_LEVEL,
   format: Winston.format.json(),
   transports: [
-    new Winston.transports.Console({ level: LOG_LEVEL })
-  ]
-})
+    new DiscordTransport({
+      webhook: DISCORD_LOGGER_WEBHOOK,
+      level: LOG_LEVEL,
+      defaultMeta: { name: "YesTheoryFam-Backend" },
+    }),
+  ],
+});
