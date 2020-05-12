@@ -14,6 +14,8 @@
     "lint": "eslint src/** index.d.ts"
   },
   "dependencies": {
+    "@hapi/boom": "^9.1.0",
+    "@hapi/joi": "^17.1.1",
     "@koa/cors": "^3.0.0",
     "@koa/router": "^8.0.8",
     "axios": "^0.19.2",
@@ -24,6 +26,7 @@
     "koa-logger-winston": "^0.0.2"
   },
   "devDependencies": {
+    "@types/hapi__joi": "^17.1.0",
     "@types/koa": "^2.11.3",
     "@types/koa-bodyparser": "^4.3.0",
     "@types/koa-logger-winston": "^0.0.2",
