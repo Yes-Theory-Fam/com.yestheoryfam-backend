@@ -14,6 +14,7 @@ You also need a `.env` file in the root of this project with these keys:
 | `GUILD_ID`           | The ID of the server people will be added to                                                                                                                   |
 | `BUDDY_PROJECT_ROLE` | The ID of the role for users who are part of the Buddy Project                                                                                                 |
 | `LOCAL_WEBSITE`      | (optional) The host of the local dev server running the frontend. This is used for CORS and should be left out in a production environment.                    |
+| `LOG_LEVEL`          | The log level for the winston logger, see [Winston Logging Levels](https://github.com/winstonjs/winston#logging-levels) for more information.                  |
 
 ## Instructions
 
