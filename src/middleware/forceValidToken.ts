@@ -28,7 +28,7 @@ const forceValidToken = async (
     return;
   }
 
-  next();
+  await next();
 };
 
 export default forceValidToken;

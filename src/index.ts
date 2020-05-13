@@ -32,6 +32,6 @@ app.use(errorHandler);
 app.use(cors(corsOptions));
 app.use(koaLogger(logger));
 app.use(forceValidToken);
-app.use(routes.routes()).use(routes.allowedMethods());
+app.use(routes.routes());
 
 app.listen(HTTP_PORT, () => console.log("Running on port " + HTTP_PORT));
