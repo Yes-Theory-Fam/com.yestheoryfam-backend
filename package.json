@@ -8,6 +8,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "build": "echo ok",
     "start": "ts-node-dev --respawn src/index.ts",
     "start:prod": "ts-node src/index.ts",
     "lint:fix": "eslint src/** index.d.ts --fix",
