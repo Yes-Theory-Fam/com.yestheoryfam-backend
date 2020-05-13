@@ -11,6 +11,7 @@ router.post("/", async (ctx) => {
   const success = await userToServer(user.id, authorization);
 
   if (success) {
+    response.status = 200;
     response.body = "OK";
   } else {
     response.status = 500;
