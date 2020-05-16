@@ -2,10 +2,18 @@ import { getUserDetails } from "../lib/discord";
 import Error from "../config/errors";
 import { Next, ParameterizedContext } from "koa";
 
+const skip = process.env["SKIP_AUTHENTICATION"];
+
 const forceValidToken = async (
   ctx: ParameterizedContext<KoaState>,
   next: Next
 ): Promise<void> => {
+  if (skip) {
+    // Dummy ID; Yesbot for simplicity sake
+    ctx.state.user = { id: "614101602046836776" };
+    return await next();
+  }
+
   const { request, response, state } = ctx;
 
   const { authorization } = request.headers;
