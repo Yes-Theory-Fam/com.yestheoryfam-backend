@@ -2,6 +2,8 @@ import Koa from "koa";
 import dotenv from "dotenv";
 import cors, { Options } from "@koa/cors";
 import koaLogger from "koa-logger-winston";
+import bodyParser from "koa-bodyparser";
+import Boom from "@hapi/boom";
 
 // Loads .env files
 dotenv.config();
@@ -31,6 +33,16 @@ const corsOptions: Options = {
 app.use(errorHandler);
 app.use(cors(corsOptions));
 app.use(koaLogger(logger));
+
+app.use(
+  bodyParser({
+    enableTypes: ["json"],
+    onerror: (err, ctx) => {
+      ctx.throw(Boom.badData(err.message));
+    },
+  })
+);
+
 app.use(forceValidToken);
 app.use(routes.routes());
 
