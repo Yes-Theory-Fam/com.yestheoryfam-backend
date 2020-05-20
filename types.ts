@@ -1,5 +1,6 @@
 interface DiscordUser {
   id: string;
+  username: string;
 }
 
 interface BackendError {

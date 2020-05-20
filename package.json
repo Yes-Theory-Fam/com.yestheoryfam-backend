@@ -11,8 +11,8 @@
     "build": "echo ok",
     "start": "ts-node-dev --respawn src/index.ts",
     "start:prod": "ts-node --files src/index.ts",
-    "lint:fix": "eslint src/** index.d.ts --fix",
-    "lint": "eslint src/** index.d.ts"
+    "lint:fix": "eslint src/** types.ts --fix",
+    "lint": "eslint src/** types.ts"
   },
   "dependencies": {
     "@hapi/boom": "^9.1.0",
