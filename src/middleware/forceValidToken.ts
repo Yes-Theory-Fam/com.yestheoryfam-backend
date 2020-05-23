@@ -9,8 +9,8 @@ const forceValidToken = async (
   next: Next
 ): Promise<void> => {
   if (skip) {
-    // Dummy ID; Yesbot for simplicity sake
-    ctx.state.user = { id: "614101602046836776" };
+    // Dummy ID; Michel for simplicity sake
+    ctx.state.user = { id: "290193372407136256", username: "geisterfurz007" };
     return await next();
   }
 
