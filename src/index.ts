@@ -8,6 +8,7 @@ import Boom from "@hapi/boom";
 // Loads .env files
 dotenv.config();
 
+import "./db"; // Imported for side effects
 import { forceValidToken, logger, errorHandler } from "./middleware";
 import routes from "./routes";
 
@@ -45,5 +46,7 @@ app.use(
 
 app.use(forceValidToken);
 app.use(routes.routes());
+
+console.log(routes.stack.map((s) => s.path));
 
 app.listen(HTTP_PORT, () => console.log("Running on port " + HTTP_PORT));
