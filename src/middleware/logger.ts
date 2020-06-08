@@ -13,6 +13,9 @@ const transports = DISCORD_LOGGER_WEBHOOK
 
 export default Winston.createLogger({
   level: LOG_LEVEL,
-  format: Winston.format.json(),
+  format: Winston.format.combine(
+    Winston.format.uncolorize(),
+    Winston.format.json()
+  ),
   transports,
 });
