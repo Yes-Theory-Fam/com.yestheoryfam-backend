@@ -4,7 +4,7 @@ This repository contains the code for the express server powering the website ht
 
 ## Requirements
 
-Node 13+ and Yarn are required to run this project.
+Node 13+ is required to run this project.
 
 You also need a `.env` file in the root of this project with these keys:
 
@@ -26,8 +26,8 @@ To run the webservice, run the following commands:
 ```
 git clone https://github.com/yes-theory-fam/com.yestheory-backend.git
 cd com.yestheory-backend
-yarn
-yarn start
+npm install
+npm start
 ```
 
 This will clone the repository, install all dependencies and start the node process.
