@@ -23,13 +23,21 @@ You also need a `.env` file in the root of this project with these keys:
 
 ## Instructions
 
-To run the webservice, run the following commands:
+To run the webservice, run the following commands (requires docker to be installed):
 
 ```
 git clone https://github.com/yes-theory-fam/com.yestheory-backend.git
 cd com.yestheory-backend
+docker-compose up
 npm install
 npm start
 ```
 
-This will clone the repository, install all dependencies and start the node process.
+This will clone the repository, install all dependencies and launch a database as well as a minio server to host files.
+
+### Relevant addresses
+
+Address | Description
+http://localhost:3000 | Backend
+http://localhost:5432 | Exposed postgres database
+http://localhost:9000 | Exposed minio server
