@@ -37,6 +37,8 @@ for (const { directory, postUpload } of uploads) {
     if (postUpload) {
       await postUpload(fileId);
     }
+
+    ctx.status = 200;
   });
 }
 

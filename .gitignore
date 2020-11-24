@@ -113,3 +113,5 @@ temp/
 .env
 .idea/
 build/
+
+src/scripts/photowall/assets/*.jpg
