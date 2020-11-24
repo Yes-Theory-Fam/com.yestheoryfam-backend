@@ -1,0 +1,45 @@
+version: "3.7"
+
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: Database.Dockerfile
+    image: ytf-database:latest
+    environment:
+      POSTGRES_PASSWORD: password
+    ports:
+      - 5432
+    networks:
+      api:
+        aliases:
+          - database
+
+  minio:
+    image: minio/minio
+    command: minio server /data
+    environment:
+      MINIO_ACCESS_KEY: AKIAANDFODNN7EXAMPLE
+      MINIO_SECRET_KEY: wJalrXUtnFEMARMFEYlGbPxRfiCYEXAMPLEKEY!
+    ports:
+      - 9000
+    networks:
+      - api
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ytf-backend:latest
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres
+      - minio
+    networks:
+      - api
+    environment:
+      TYPEORM_URL: postgres://yesbot:yesbot@database:5432/yesbot
+
+networks:
+  api:
