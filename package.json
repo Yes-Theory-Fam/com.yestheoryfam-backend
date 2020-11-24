@@ -9,7 +9,7 @@
   "private": true,
   "scripts": {
     "build": "tsc",
-    "start": "ts-node-dev --respawn src/index.ts",
+    "start": "ts-node-dev --respawn --files src/index.ts",
     "start:prod": "ts-node --files src/index.ts",
     "lint:fix": "eslint src/** types.ts --fix",
     "lint": "eslint src/** types.ts"
