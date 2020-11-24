@@ -11,6 +11,8 @@ dotenv.config();
 import "./db"; // Imported for side effects
 import { forceValidToken, logger, errorHandler } from "./middleware";
 import routes from "./routes";
+import { PhotowallEntryRepository } from "./entities/PhotowallEntry";
+import { seedPhotowall } from "./scripts/photowall/seedPhotowall";
 
 const app = new Koa();
 const HTTP_PORT = process.env["HTTP_PORT"] ?? 3000;
@@ -50,3 +52,13 @@ app.use(routes.routes());
 console.log(routes.stack.map((s) => s.path));
 
 app.listen(HTTP_PORT, () => console.log("Running on port " + HTTP_PORT));
+
+const seed = async (): Promise<void> => {
+  const photoWallRepo = await PhotowallEntryRepository();
+  const hasResult = await photoWallRepo.findOne();
+  if (!hasResult) {
+    await seedPhotowall();
+  }
+};
+
+setTimeout(() => seed().then(() => console.log("Seeded")), 1000);
